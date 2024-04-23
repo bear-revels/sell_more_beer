@@ -8,6 +8,7 @@ def main():
     # Specify the data source and paths
     data_dir = os.path.join(current_dir, "data")
     location_file = os.path.join(current_dir, "data/Locations.csv")
+    channel_file = os.path.join(current_dir, "data/Locations.csv")
     database_path = os.path.join(current_dir, "data/sell_more_beer.db")
 
     # Assign the DataProcessor class
@@ -27,6 +28,17 @@ def main():
 
     # Convert the Volume column from string to int
     processor.int_conversion(data_dir)
+
+    # Drop unncessary columns
+    processor.drop_column(channel_file, "Category")
+    processor.drop_column(data_dir, "Year")
+
+    #Rename columns
+    processor.rename_column(channel_file, "Subcategory", "Category")
+    processor.rename_column(data_dir, "Year_date", "Date")
+
+    # Create date dimension table for use in database schema
+    processor.create_date_table(data_dir)
 
     # Create SQLite database and import data from CSV files
     processor.create_database(data_dir, database_path)

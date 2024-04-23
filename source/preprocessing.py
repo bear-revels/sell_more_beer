@@ -167,10 +167,147 @@ class DataProcessor:
                     # Check if the column is object type and named 'Volume'
                     elif col == 'Volume' and df[col].dtype == 'object':
                         # Convert the values to integers, round to two decimals, and then back to integers
-                        df[col] = df[col].str.replace(',', '.').astype(float).round(2).astype(int)
+                        df[col] = df[col].str.replace(',', '.').astype(float).round(2)
 
                 # Write back to CSV file with comma as the decimal separator
                 df.to_csv(file_path, index=False, decimal=',')
+
+    def fix_string_columns(self, data_dir):
+        """
+        Fix string columns by capitalizing the first letter of each word and making the rest lowercase.
+
+        Args:
+            data_dir (str): Path to the directory containing CSV files.
+        """
+        # Get a list of all files in the data directory
+        files = os.listdir(data_dir)
+
+        # Iterate through each file
+        for file in files:
+            # Check if the file is a CSV file
+            if file.endswith(".csv"):
+                file_path = os.path.join(data_dir, file)
+                # Read the CSV file into a DataFrame
+                df = pd.read_csv(file_path)
+                # Iterate through each column
+                for col in df.columns:
+                    # Check if the column data type is object (string)
+                    if df[col].dtype == 'object':
+                        # Capitalize the first letter of each word and make the rest lowercase
+                        df[col] = df[col].apply(lambda x: ' '.join([word.capitalize() for word in x.lower().split()]))
+                # Write the updated DataFrame back to the CSV file
+                df.to_csv(file_path, index=False)
+
+    def drop_column(self, path, column_name):
+        """
+        Drops the specified column from CSV files in the specified directory or file.
+
+        Args:
+            path (str): Path to the directory containing CSV files or path to a single CSV file.
+            column_name (str): Name of the column to drop.
+        """
+        # Check if the path is a directory or a file
+        if os.path.isdir(path):
+            # Get a list of all files in the directory
+            files = os.listdir(path)
+        else:
+            files = [path]
+
+        # Iterate through each file
+        for file in files:
+            # Check if the file is a CSV file
+            if file.endswith(".csv"):
+                file_path = os.path.join(path, file)
+                # Read the CSV file into a DataFrame
+                df = pd.read_csv(file_path)
+                # Drop the specified column if it exists
+                if column_name in df.columns:
+                    df.drop(columns=[column_name], inplace=True)
+                    # Write back to CSV file
+                    df.to_csv(file_path, sep=',', index=False)
+
+    def rename_column(self, path, old_column_name, new_column_name):
+        """
+        Renames the specified column in CSV files in the specified directory or file.
+
+        Args:
+            path (str): Path to the directory containing CSV files or path to a single CSV file.
+            old_column_name (str): Current name of the column to rename.
+            new_column_name (str): New name for the column.
+        """
+        # Check if the path is a directory or a file
+        if os.path.isdir(path):
+            # Get a list of all files in the directory
+            files = os.listdir(path)
+        else:
+            files = [path]
+
+        # Iterate through each file
+        for file in files:
+            # Check if the file is a CSV file
+            if file.endswith(".csv"):
+                file_path = os.path.join(path, file)
+                # Read the CSV file into a DataFrame
+                df = pd.read_csv(file_path)
+                # Rename the specified column if it exists
+                if old_column_name in df.columns:
+                    df.rename(columns={old_column_name: new_column_name}, inplace=True)
+                    # Write back to CSV file
+                    df.to_csv(file_path, sep=',', index=False)
+    
+    def create_date_table(self, data_dir):
+        """
+        Create a date dimension table based on the range of dates present in the 'Year_date' columns of the CSV files.
+
+        Args:
+            data_dir (str): Path to the directory containing CSV files.
+        """
+        # Initialize an empty DataFrame to store the date dimension
+        date_dimension = pd.DataFrame(columns=["Date"])
+
+        # Get a list of all files in the data directory
+        files = os.listdir(data_dir)
+
+        # Iterate through each file
+        for file in files:
+            # Check if the file is a CSV file
+            if file.endswith(".csv"):
+                file_path = os.path.join(data_dir, file)
+                # Read the CSV file into a DataFrame
+                df = pd.read_csv(file_path)
+                # Check if 'Year_date' column exists
+                if 'Year_date' in df.columns:
+                    # Get the range of dates present in the 'Year_date' column
+                    min_date = pd.to_datetime(df['Year_date']).min()
+                    max_date = pd.to_datetime(df['Year_date']).max()
+                    # Generate a date range between min and max date
+                    dates = pd.date_range(start=min_date, end=max_date, freq='D')
+                    # Append dates to the date_dimension DataFrame
+                    date_dimension = pd.concat([date_dimension, pd.DataFrame({"Date": dates})], ignore_index=True)
+
+        # Drop duplicate dates
+        date_dimension.drop_duplicates(subset=["Date"], inplace=True)
+
+        # Extract year, quarter, month, day, and day of week from the 'Date' column
+        date_dimension['Year'] = date_dimension['Date'].dt.year
+        date_dimension['Quarter_Num'] = date_dimension['Date'].dt.quarter
+        date_dimension['Quarter'] = "Q" + date_dimension['Date'].dt.quarter.astype(str)
+        date_dimension['Month_Num'] = date_dimension['Date'].dt.month
+        date_dimension['Month_Name'] = date_dimension['Date'].dt.month_name()
+        date_dimension['Month_MMM'] = date_dimension['Date'].dt.strftime("%b").str.upper()
+        date_dimension['WeekOfYear_Num'] = date_dimension['Date'].dt.isocalendar().week
+        date_dimension['DayOfMonth_Num'] = date_dimension['Date'].dt.day
+        date_dimension['DayOfWeek_Num'] = date_dimension['Date'].dt.dayofweek
+        date_dimension['DayOfWeek_Name'] = date_dimension['Date'].dt.strftime("%A")
+        date_dimension['DayOfWeek_MMM'] = date_dimension['Date'].dt.strftime("%a").str.upper()
+        date_dimension['DayOfYear_Num'] = date_dimension['Date'].dt.dayofyear
+
+        # Sort the date_dimension DataFrame
+        date_dimension.sort_values(by="Date", inplace=True)
+
+        # Write the date_dimension DataFrame to the output CSV file
+        output_file = os.path.join(data_dir, "Date_Table.csv")
+        date_dimension.to_csv(output_file, index=False)
 
     def create_database(self, csv_dir, db_path):
         """
@@ -202,12 +339,16 @@ class DataProcessor:
         # Define foreign key constraints between tables
         c.execute('''CREATE TABLE IF NOT EXISTS Channel_Volume (
                         Category TEXT,
+                        Date_year INTEGER,
+                        FOREIGN KEY (Date_year) REFERENCES Date_Table(Date),
                         FOREIGN KEY (Category) REFERENCES Categories(Category)
                     )''')
 
         c.execute('''CREATE TABLE IF NOT EXISTS Market_Sizes (
                         Subcategory TEXT,
                         Location TEXT,
+                        Date_year INTEGER,
+                        FOREIGN KEY (Date_year) REFERENCES Date_Table(Date),
                         FOREIGN KEY (Subcategory) REFERENCES Subcategories(Subcategory),
                         FOREIGN KEY (Location) REFERENCES Locations(Location)
                     )''')
@@ -215,6 +356,8 @@ class DataProcessor:
         c.execute('''CREATE TABLE IF NOT EXISTS Company_Share_GBO_unit (
                         Subcategory_ID INTEGER,
                         Location TEXT,
+                        Date_year INTEGER,
+                        FOREIGN KEY (Date_year) REFERENCES Date_Table(Date),
                         FOREIGN KEY (Subcategory_ID) REFERENCES Subcategories(id),
                         FOREIGN KEY (Location) REFERENCES Locations(Location)
                     )''')

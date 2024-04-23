@@ -23,11 +23,15 @@ def main():
     # Transpose the Location file
     processor.transpose(location_file)
 
+
     # Standardize the date format to DD/MM/YYYY
     processor.format_date(data_dir)
 
     # Convert the Volume column from string to int
     processor.int_conversion(data_dir)
+
+    # Convert the Volume column from string to int
+    processor.standardize_units(data_dir)
 
     # Drop unncessary columns
     processor.drop_column(channel_file, "Category")

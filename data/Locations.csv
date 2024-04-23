@@ -1,3 +1,9 @@
-id;0;1;0;2;0;3;0;4;0;5;0;6;0;7;0;8;0
-Region;;Asia Pacific;;Australasia;;Eastern Europe;;Latin America;;Middle East and Africa;;North America;;Western Europe;;World;
-Country;;Asia Pacific;;Australasia;;Eastern Europe;;Latin America;;Middle East and Africa;;North America;;Western Europe;;World;
+id,Region
+1,Asia Pacific
+2,Australasia
+3,Eastern Europe
+4,Latin America
+5,Middle East and Africa
+6,North America
+7,Western Europe
+8,World

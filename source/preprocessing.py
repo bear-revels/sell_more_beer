@@ -158,19 +158,44 @@ class DataProcessor:
                 for col in df.columns:
                     # Check if the column is float type and not the 'Volume' column
                     if df[col].dtype == 'float' and col != 'Volume':
-                        # Convert the values to integers without decimals
-                        df[col] = df[col].astype(int)
-                    # Check if the column is the float type 'Volume' column
-                    elif col == 'Volume' and df[col].dtype == 'float':
-                        # Round the values to two decimals
-                        df[col] = df[col].round(2)
-                    # Check if the column is object type and named 'Volume'
-                    elif col == 'Volume' and df[col].dtype == 'object':
-                        # Convert the values to integers, round to two decimals, and then back to integers
-                        df[col] = df[col].str.replace(',', '.').astype(float).round(2)
+                        # Print column name for debugging
+                        print(f"Checking column '{col}' for non-finite values...")
+                        # Convert the values to integers without decimals after handling non-finite values
+                        df[col] = df[col].astype(int).round(0)
 
                 # Write back to CSV file with comma as the decimal separator
                 df.to_csv(file_path, index=False, decimal=',')
+
+    def standardize_units(self, data_dir):
+        """
+        Process volume units in CSV files in the specified directory and calculate volume in litres.
+
+        Args:
+            data_dir (str): Path to the directory containing CSV files.
+        """
+        # Get a list of all files in the data directory
+        files = os.listdir(data_dir)
+
+        # Iterate through each file
+        for file in files:
+            # Check if the file is a CSV file
+            if file.endswith(".csv"):
+                file_path = os.path.join(data_dir, file)
+                # Read the CSV file into a DataFrame
+                df = pd.read_csv(file_path)
+
+                # Check if 'Unit' and 'Volume' columns exist
+                if 'Unit' in df.columns and 'Volume' in df.columns:
+                    # Convert 'Volume' column to float
+                    df['Volume'] = df['Volume'].str.replace(',', '.').astype(float)
+
+                    # Process volume units
+                    df['Volume_Litres'] = df.apply(lambda row: round(row['Volume'] * 1000000) if row['Unit'] == 'million litres'
+                                                else round(row['Volume'] * 1000) if row['Unit'] == '000 litres' else row['Volume'],
+                                                axis=1)
+                    
+                    # Write back to CSV file with updated volume in litres
+                    df.to_csv(file_path, index=False, decimal=',')
 
     def fix_string_columns(self, data_dir):
         """
@@ -275,11 +300,11 @@ class DataProcessor:
                 file_path = os.path.join(data_dir, file)
                 # Read the CSV file into a DataFrame
                 df = pd.read_csv(file_path)
-                # Check if 'Year_date' column exists
-                if 'Year_date' in df.columns:
-                    # Get the range of dates present in the 'Year_date' column
-                    min_date = pd.to_datetime(df['Year_date']).min()
-                    max_date = pd.to_datetime(df['Year_date']).max()
+                # Check if 'Date' column exists
+                if 'Date' in df.columns:
+                    # Get the range of dates present in the 'Date' column
+                    min_date = pd.to_datetime(df['Date']).min()
+                    max_date = pd.to_datetime(df['Date']).max()
                     # Generate a date range between min and max date
                     dates = pd.date_range(start=min_date, end=max_date, freq='D')
                     # Append dates to the date_dimension DataFrame
@@ -291,7 +316,7 @@ class DataProcessor:
         # Extract year, quarter, month, day, and day of week from the 'Date' column
         date_dimension['Year'] = date_dimension['Date'].dt.year
         date_dimension['Quarter_Num'] = date_dimension['Date'].dt.quarter
-        date_dimension['Quarter'] = "Q" + date_dimension['Date'].dt.quarter.astype(str)
+        date_dimension['Quarter_Name'] = "Q" + date_dimension['Date'].dt.quarter.astype(str)
         date_dimension['Month_Num'] = date_dimension['Date'].dt.month
         date_dimension['Month_Name'] = date_dimension['Date'].dt.month_name()
         date_dimension['Month_MMM'] = date_dimension['Date'].dt.strftime("%b").str.upper()

@@ -9,10 +9,6 @@ def main():
     data_dir = os.path.join(current_dir, "data")
     location_file = os.path.join(current_dir, "data/Locations.csv")
     channel_file = os.path.join(current_dir, "data/Channel_Volume.csv")
-    market_file = os.path.join(current_dir, "data/Channel_Volume.csv")
-    company_file = os.path.join(current_dir, "data/Channel_Volume.csv")
-    category_file = os.path.join(current_dir, "data/Channel_Volume.csv")
-    subcategory_file = os.path.join(current_dir, "data/Channel_Volume.csv")
     database_path = os.path.join(current_dir, "data/sell_more_beer.db")
 
     # Assign the DataProcessor class
@@ -38,7 +34,6 @@ def main():
 
     # Drop unncessary columns
     processor.drop_column(channel_file, "Category")
-    processor.drop_column(data_dir, "Year")
 
     # Rename columns
     processor.rename_column(channel_file, "Subcategory", "Category")
@@ -49,6 +44,9 @@ def main():
 
     # Create date dimension table for use in database schema
     processor.create_date_table(data_dir)
+
+    # Add countries to regions for mapping
+    processor.process_locations(data_dir)
 
     # Create SQLite database and import data from CSV files
     processor.create_database(data_dir, database_path)

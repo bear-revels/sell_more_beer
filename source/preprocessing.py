@@ -158,8 +158,6 @@ class DataProcessor:
                 for col in df.columns:
                     # Check if the column is float type and not the 'Volume' column
                     if df[col].dtype == 'float' and col != 'Volume':
-                        # Print column name for debugging
-                        print(f"Checking column '{col}' for non-finite values...")
                         # Convert the values to integers without decimals after handling non-finite values
                         df[col] = df[col].astype(int).round(0)
 
@@ -388,6 +386,77 @@ class DataProcessor:
         output_file = os.path.join(data_dir, "Date_Table.csv")
         date_dimension.to_csv(output_file, index=False)
 
+    def process_locations(self, data_dir):
+        # Define a dictionary to store countries and their codes for each region
+        country_data = {
+            'Asia Pacific': [
+                ('CN', 'China'), ('HK', 'Hong Kong'), ('MO', 'Macao'), ('KP', 'North Korea'), ('JP', 'Japan'), ('MN', 'Mongolia'),
+                ('KR', 'South Korea'), ('TW', 'Taiwan'), ('KZ', 'Kazakhstan'), ('KG', 'Kyrgyzstan'), ('TJ', 'Tajikistan'),
+                ('TM', 'Turkmenistan'), ('UZ', 'Uzbekistan'), ('AF', 'Afghanistan'), ('BD', 'Bangladesh'), ('BT', 'Bhutan'),
+                ('IN', 'India'), ('IR', 'Iran'), ('MV', 'Maldives'), ('NP', 'Nepal'), ('PK', 'Pakistan'), ('LK', 'Sri Lanka'),
+                ('TR', 'Turkey'), ('BN', 'Brunei Darussalam'), ('KH', 'Cambodia'), ('ID', 'Indonesia'), ('LA', 'Laos'),
+                ('MY', 'Malaysia'), ('MM', 'Myanmar'), ('PH', 'Philippines'), ('SG', 'Singapore'), ('TH', 'Thailand'),
+                ('TL', 'Timor-Leste (East Timor)'), ('VN', 'Vietnam'), ('AS', 'American Samoa'), ('AU', 'Australia'),
+                ('CK', 'Cook Islands'), ('FJ', 'Fiji'), ('PF', 'French Polynesia'), ('GU', 'Guam'), ('KI', 'Kiribati'),
+                ('MH', 'Marshall Islands'), ('FM', 'Micronesia'), ('NR', 'Nauru'), ('NC', 'New Caledonia'),
+                ('NU', 'Niue'), ('MP', 'Northern Mariana Islands'), ('PW', 'Palau'), ('PG', 'Papua New Guinea'), ('WS', 'Samoa'),
+                ('SB', 'Solomon Islands'), ('TO', 'Tonga'), ('TV', 'Tuvalu'), ('VU', 'Vanuatu')
+            ],
+            'Australasia': [
+                ('AU', 'Australia'), ('CX', 'Christmas Island'), ('CC', 'Cocos Islands'), ('NZ', 'New Zealand'), ('NF', 'Norfolk Island')],
+            'Eastern Europe': [
+                ('BG', 'Bulgaria'), ('CZ', 'Czech Republic'), ('HU', 'Hungary'), ('PL', 'Poland'), ('RO', 'Romania'), ('RU', 'Russia'),
+                ('SK', 'Slovakia'), ('BY', 'Belarus'), ('MD', 'Moldova'), ('UA', 'Ukraine')],
+            'Latin America': [
+                ('AR', 'Argentina'), ('BO', 'Bolivia'), ('BR', 'Brazil'), ('CL', 'Chile'), ('CO', 'Colombia'), ('EC', 'Ecuador'),
+                ('GF', 'French Guiana'), ('GY', 'Guyana'), ('PY', 'Paraguay'), ('PE', 'Peru'), ('SR', 'Suriname'), ('UY', 'Uruguay'),
+                ('VE', 'Venezuela'), ('BZ', 'Belize'), ('CR', 'Costa Rica'), ('SV', 'El Salvador'), ('GT', 'Guatemala'),
+                ('HN', 'Honduras'), ('NI', 'Nicaragua'), ('PA', 'Panama')],
+            'Middle East and Africa': [
+                ('AM', 'Armenia'), ('AZ', 'Azerbaijan'), ('DZ', 'Algeria'), ('AO', 'Angola'), ('BJ', 'Benin'), ('BW', 'Botswana'),
+                ('BF', 'Burkina Faso'), ('BI', 'Burundi'), ('CV', 'Cabo Verde'), ('CM', 'Cameroon'), ('CF', 'Central African Republic'),
+                ('TD', 'Chad'), ('KM', 'Comoros'), ('CD', 'Congo (Democratic Republic of the)'), ('CG', 'Congo'),
+                ('CI', "Côte d'Ivoire"), ('DJ', 'Djibouti'), ('EG', 'Egypt'), ('GQ', 'Equatorial Guinea'), ('ER', 'Eritrea'),
+                ('SZ', 'Eswatini'), ('ET', 'Ethiopia'), ('GA', 'Gabon'), ('GM', 'Gambia'), ('GH', 'Ghana'), ('GN', 'Guinea'),
+                ('GW', 'Guinea-Bissau'), ('KE', 'Kenya'), ('LS', 'Lesotho'), ('LR', 'Liberia'), ('LY', 'Libya'), ('MG', 'Madagascar'),
+                ('MW', 'Malawi'), ('ML', 'Mali'), ('MR', 'Mauritania'), ('MU', 'Mauritius'), ('MA', 'Morocco'), ('MZ', 'Mozambique'),
+                ('NA', 'Namibia'), ('NE', 'Niger'), ('NG', 'Nigeria'), ('RW', 'Rwanda'), ('ST', 'Sao Tome and Principe'), ('SN', 'Senegal'),
+                ('SC', 'Seychelles'), ('SL', 'Sierra Leone'), ('SO', 'Somalia'), ('ZA', 'South Africa'), ('SS', 'South Sudan'),
+                ('SD', 'Sudan'), ('TZ', 'Tanzania'), ('TG', 'Togo'), ('TN', 'Tunisia'), ('UG', 'Uganda'), ('ZM', 'Zambia'),
+                ('ZW', 'Zimbabwe'), ('AG', 'Akrotiri and Dhekelia'), ('BH', 'Bahrain'), ('CY', 'Cyprus'), ('IR', 'Iran'), ('IQ', 'Iraq'),
+                ('IL', 'Israel'), ('JO', 'Jordan'), ('KW', 'Kuwait'), ('LB', 'Lebanon'), ('OM', 'Oman'), ('PS', 'Palestine'), ('QA', 'Qatar'),
+                ('SA', 'Saudi Arabia'), ('SY', 'Syria'), ('TR', 'Turkey'), ('AE', 'United Arab Emirates'), ('YE', 'Yemen')],
+            'North America': [
+                ('US', 'United States'), ('CA', 'Canada'), ('MX', 'Mexico')],
+            'Western Europe': [
+                ('AD', 'Andorra'), ('AT', 'Austria'), ('BE', 'Belgium'), ('DK', 'Denmark'), ('FI', 'Finland'), ('FR', 'France'),
+                ('DE', 'Germany'), ('IS', 'Iceland'), ('IE', 'Ireland'), ('IT', 'Italy'), ('LI', 'Liechtenstein'), ('LU', 'Luxembourg'),
+                ('MT', 'Malta'), ('MC', 'Monaco'), ('NL', 'Netherlands'), ('NO', 'Norway'), ('PT', 'Portugal'), ('SM', 'San Marino'),
+                ('ES', 'Spain'), ('SE', 'Sweden'), ('CH', 'Switzerland'), ('GB', 'United Kingdom'), ('VA', 'Vatican City')]
+        }
+        
+        locations = os.path.join(data_dir, "Locations.csv")
+
+        # Read the original regions table
+        regions_table = pd.read_csv(locations)
+
+        # Iterate through each row in the regions table
+        expanded_data = []
+        for _, row in regions_table.iterrows():
+            region_id = row['id']
+            region = row['Region']
+            countries = country_data.get(region, [])
+
+            # Append the expanded data for the region
+            for country_code, country_name in countries:
+                expanded_data.append({'Country_Code': country_code, 'Country_Name': country_name, 'Region_Name': region, 'Region_ID': region_id})
+
+        # Create a DataFrame from the expanded data
+        expanded_table = pd.DataFrame(expanded_data)
+
+        # Save the expanded table back to the original location
+        expanded_table.to_csv(locations, index=False)
+        
     def create_database(self, csv_dir, db_path):
         """
         Create a SQLite database and import data from CSV files into tables.

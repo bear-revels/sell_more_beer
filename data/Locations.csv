@@ -1,9 +1,189 @@
-id,Region
-1,Asia Pacific
-2,Australasia
-3,Eastern Europe
-4,Latin America
-5,Middle East and Africa
-6,North America
-7,Western Europe
-8,World
+Country_Code,Country_Name,Region_Name,Region_ID
+CN,China,Asia Pacific,1
+HK,Hong Kong,Asia Pacific,1
+MO,Macao,Asia Pacific,1
+KP,North Korea,Asia Pacific,1
+JP,Japan,Asia Pacific,1
+MN,Mongolia,Asia Pacific,1
+KR,South Korea,Asia Pacific,1
+TW,Taiwan,Asia Pacific,1
+KZ,Kazakhstan,Asia Pacific,1
+KG,Kyrgyzstan,Asia Pacific,1
+TJ,Tajikistan,Asia Pacific,1
+TM,Turkmenistan,Asia Pacific,1
+UZ,Uzbekistan,Asia Pacific,1
+AF,Afghanistan,Asia Pacific,1
+BD,Bangladesh,Asia Pacific,1
+BT,Bhutan,Asia Pacific,1
+IN,India,Asia Pacific,1
+IR,Iran,Asia Pacific,1
+MV,Maldives,Asia Pacific,1
+NP,Nepal,Asia Pacific,1
+PK,Pakistan,Asia Pacific,1
+LK,Sri Lanka,Asia Pacific,1
+TR,Turkey,Asia Pacific,1
+BN,Brunei Darussalam,Asia Pacific,1
+KH,Cambodia,Asia Pacific,1
+ID,Indonesia,Asia Pacific,1
+LA,Laos,Asia Pacific,1
+MY,Malaysia,Asia Pacific,1
+MM,Myanmar,Asia Pacific,1
+PH,Philippines,Asia Pacific,1
+SG,Singapore,Asia Pacific,1
+TH,Thailand,Asia Pacific,1
+TL,Timor-Leste (East Timor),Asia Pacific,1
+VN,Vietnam,Asia Pacific,1
+AS,American Samoa,Asia Pacific,1
+AU,Australia,Asia Pacific,1
+CK,Cook Islands,Asia Pacific,1
+FJ,Fiji,Asia Pacific,1
+PF,French Polynesia,Asia Pacific,1
+GU,Guam,Asia Pacific,1
+KI,Kiribati,Asia Pacific,1
+MH,Marshall Islands,Asia Pacific,1
+FM,Micronesia,Asia Pacific,1
+NR,Nauru,Asia Pacific,1
+NC,New Caledonia,Asia Pacific,1
+NU,Niue,Asia Pacific,1
+MP,Northern Mariana Islands,Asia Pacific,1
+PW,Palau,Asia Pacific,1
+PG,Papua New Guinea,Asia Pacific,1
+WS,Samoa,Asia Pacific,1
+SB,Solomon Islands,Asia Pacific,1
+TO,Tonga,Asia Pacific,1
+TV,Tuvalu,Asia Pacific,1
+VU,Vanuatu,Asia Pacific,1
+AU,Australia,Australasia,2
+CX,Christmas Island,Australasia,2
+CC,Cocos Islands,Australasia,2
+NZ,New Zealand,Australasia,2
+NF,Norfolk Island,Australasia,2
+BG,Bulgaria,Eastern Europe,3
+CZ,Czech Republic,Eastern Europe,3
+HU,Hungary,Eastern Europe,3
+PL,Poland,Eastern Europe,3
+RO,Romania,Eastern Europe,3
+RU,Russia,Eastern Europe,3
+SK,Slovakia,Eastern Europe,3
+BY,Belarus,Eastern Europe,3
+MD,Moldova,Eastern Europe,3
+UA,Ukraine,Eastern Europe,3
+AR,Argentina,Latin America,4
+BO,Bolivia,Latin America,4
+BR,Brazil,Latin America,4
+CL,Chile,Latin America,4
+CO,Colombia,Latin America,4
+EC,Ecuador,Latin America,4
+GF,French Guiana,Latin America,4
+GY,Guyana,Latin America,4
+PY,Paraguay,Latin America,4
+PE,Peru,Latin America,4
+SR,Suriname,Latin America,4
+UY,Uruguay,Latin America,4
+VE,Venezuela,Latin America,4
+BZ,Belize,Latin America,4
+CR,Costa Rica,Latin America,4
+SV,El Salvador,Latin America,4
+GT,Guatemala,Latin America,4
+HN,Honduras,Latin America,4
+NI,Nicaragua,Latin America,4
+PA,Panama,Latin America,4
+AM,Armenia,Middle East and Africa,5
+AZ,Azerbaijan,Middle East and Africa,5
+DZ,Algeria,Middle East and Africa,5
+AO,Angola,Middle East and Africa,5
+BJ,Benin,Middle East and Africa,5
+BW,Botswana,Middle East and Africa,5
+BF,Burkina Faso,Middle East and Africa,5
+BI,Burundi,Middle East and Africa,5
+CV,Cabo Verde,Middle East and Africa,5
+CM,Cameroon,Middle East and Africa,5
+CF,Central African Republic,Middle East and Africa,5
+TD,Chad,Middle East and Africa,5
+KM,Comoros,Middle East and Africa,5
+CD,Congo (Democratic Republic of the),Middle East and Africa,5
+CG,Congo,Middle East and Africa,5
+CI,Côte d'Ivoire,Middle East and Africa,5
+DJ,Djibouti,Middle East and Africa,5
+EG,Egypt,Middle East and Africa,5
+GQ,Equatorial Guinea,Middle East and Africa,5
+ER,Eritrea,Middle East and Africa,5
+SZ,Eswatini,Middle East and Africa,5
+ET,Ethiopia,Middle East and Africa,5
+GA,Gabon,Middle East and Africa,5
+GM,Gambia,Middle East and Africa,5
+GH,Ghana,Middle East and Africa,5
+GN,Guinea,Middle East and Africa,5
+GW,Guinea-Bissau,Middle East and Africa,5
+KE,Kenya,Middle East and Africa,5
+LS,Lesotho,Middle East and Africa,5
+LR,Liberia,Middle East and Africa,5
+LY,Libya,Middle East and Africa,5
+MG,Madagascar,Middle East and Africa,5
+MW,Malawi,Middle East and Africa,5
+ML,Mali,Middle East and Africa,5
+MR,Mauritania,Middle East and Africa,5
+MU,Mauritius,Middle East and Africa,5
+MA,Morocco,Middle East and Africa,5
+MZ,Mozambique,Middle East and Africa,5
+NA,Namibia,Middle East and Africa,5
+NE,Niger,Middle East and Africa,5
+NG,Nigeria,Middle East and Africa,5
+RW,Rwanda,Middle East and Africa,5
+ST,Sao Tome and Principe,Middle East and Africa,5
+SN,Senegal,Middle East and Africa,5
+SC,Seychelles,Middle East and Africa,5
+SL,Sierra Leone,Middle East and Africa,5
+SO,Somalia,Middle East and Africa,5
+ZA,South Africa,Middle East and Africa,5
+SS,South Sudan,Middle East and Africa,5
+SD,Sudan,Middle East and Africa,5
+TZ,Tanzania,Middle East and Africa,5
+TG,Togo,Middle East and Africa,5
+TN,Tunisia,Middle East and Africa,5
+UG,Uganda,Middle East and Africa,5
+ZM,Zambia,Middle East and Africa,5
+ZW,Zimbabwe,Middle East and Africa,5
+AG,Akrotiri and Dhekelia,Middle East and Africa,5
+BH,Bahrain,Middle East and Africa,5
+CY,Cyprus,Middle East and Africa,5
+IR,Iran,Middle East and Africa,5
+IQ,Iraq,Middle East and Africa,5
+IL,Israel,Middle East and Africa,5
+JO,Jordan,Middle East and Africa,5
+KW,Kuwait,Middle East and Africa,5
+LB,Lebanon,Middle East and Africa,5
+OM,Oman,Middle East and Africa,5
+PS,Palestine,Middle East and Africa,5
+QA,Qatar,Middle East and Africa,5
+SA,Saudi Arabia,Middle East and Africa,5
+SY,Syria,Middle East and Africa,5
+TR,Turkey,Middle East and Africa,5
+AE,United Arab Emirates,Middle East and Africa,5
+YE,Yemen,Middle East and Africa,5
+US,United States,North America,6
+CA,Canada,North America,6
+MX,Mexico,North America,6
+AD,Andorra,Western Europe,7
+AT,Austria,Western Europe,7
+BE,Belgium,Western Europe,7
+DK,Denmark,Western Europe,7
+FI,Finland,Western Europe,7
+FR,France,Western Europe,7
+DE,Germany,Western Europe,7
+IS,Iceland,Western Europe,7
+IE,Ireland,Western Europe,7
+IT,Italy,Western Europe,7
+LI,Liechtenstein,Western Europe,7
+LU,Luxembourg,Western Europe,7
+MT,Malta,Western Europe,7
+MC,Monaco,Western Europe,7
+NL,Netherlands,Western Europe,7
+NO,Norway,Western Europe,7
+PT,Portugal,Western Europe,7
+SM,San Marino,Western Europe,7
+ES,Spain,Western Europe,7
+SE,Sweden,Western Europe,7
+CH,Switzerland,Western Europe,7
+GB,United Kingdom,Western Europe,7
+VA,Vatican City,Western Europe,7

@@ -391,19 +391,17 @@ class DataProcessor:
         country_data = {
             'Asia Pacific': [
                 ('CN', 'China'), ('HK', 'Hong Kong'), ('MO', 'Macao'), ('KP', 'North Korea'), ('JP', 'Japan'), ('MN', 'Mongolia'),
-                ('KR', 'South Korea'), ('TW', 'Taiwan'), ('KZ', 'Kazakhstan'), ('KG', 'Kyrgyzstan'), ('TJ', 'Tajikistan'),
-                ('TM', 'Turkmenistan'), ('UZ', 'Uzbekistan'), ('AF', 'Afghanistan'), ('BD', 'Bangladesh'), ('BT', 'Bhutan'),
-                ('IN', 'India'), ('IR', 'Iran'), ('MV', 'Maldives'), ('NP', 'Nepal'), ('PK', 'Pakistan'), ('LK', 'Sri Lanka'),
-                ('TR', 'Turkey'), ('BN', 'Brunei Darussalam'), ('KH', 'Cambodia'), ('ID', 'Indonesia'), ('LA', 'Laos'),
+                ('KR', 'South Korea'), ('TW', 'Taiwan'), ('BD', 'Bangladesh'), ('BT', 'Bhutan'),
+                ('IN', 'India'), ('MV', 'Maldives'), ('NP', 'Nepal'), ('LK', 'Sri Lanka'),
+                ('BN', 'Brunei Darussalam'), ('KH', 'Cambodia'), ('ID', 'Indonesia'), ('LA', 'Laos'),
                 ('MY', 'Malaysia'), ('MM', 'Myanmar'), ('PH', 'Philippines'), ('SG', 'Singapore'), ('TH', 'Thailand'),
-                ('TL', 'Timor-Leste (East Timor)'), ('VN', 'Vietnam'), ('AS', 'American Samoa'), ('AU', 'Australia'),
+                ('TL', 'Timor-Leste (East Timor)'), ('VN', 'Vietnam'), ('AS', 'American Samoa'),
                 ('CK', 'Cook Islands'), ('FJ', 'Fiji'), ('PF', 'French Polynesia'), ('GU', 'Guam'), ('KI', 'Kiribati'),
-                ('MH', 'Marshall Islands'), ('FM', 'Micronesia'), ('NR', 'Nauru'), ('NC', 'New Caledonia'),
-                ('NU', 'Niue'), ('MP', 'Northern Mariana Islands'), ('PW', 'Palau'), ('PG', 'Papua New Guinea'), ('WS', 'Samoa'),
-                ('SB', 'Solomon Islands'), ('TO', 'Tonga'), ('TV', 'Tuvalu'), ('VU', 'Vanuatu')
-            ],
+                ('MH', 'Marshall Islands'), ('FM', 'Micronesia'), ('NR', 'Nauru'), ('NU', 'Niue'), ('MP', 'Northern Mariana Islands'), 
+                ('PW', 'Palau'), ('WS', 'Samoa'), ('TO', 'Tonga'), ('TV', 'Tuvalu')],
             'Australasia': [
-                ('AU', 'Australia'), ('CX', 'Christmas Island'), ('CC', 'Cocos Islands'), ('NZ', 'New Zealand'), ('NF', 'Norfolk Island')],
+                ('AU', 'Australia'), ('CX', 'Christmas Island'), ('CC', 'Cocos Islands'), ('NZ', 'New Zealand'), ('NF', 'Norfolk Island'), 
+                ('PG', 'Papua New Guinea'), ('NC', 'New Caledonia'), ('VU', 'Vanuatu'), ('SB', 'Solomon Islands')],
             'Eastern Europe': [
                 ('BG', 'Bulgaria'), ('CZ', 'Czech Republic'), ('HU', 'Hungary'), ('PL', 'Poland'), ('RO', 'Romania'), ('RU', 'Russia'),
                 ('SK', 'Slovakia'), ('BY', 'Belarus'), ('MD', 'Moldova'), ('UA', 'Ukraine')],
@@ -425,7 +423,8 @@ class DataProcessor:
                 ('SD', 'Sudan'), ('TZ', 'Tanzania'), ('TG', 'Togo'), ('TN', 'Tunisia'), ('UG', 'Uganda'), ('ZM', 'Zambia'),
                 ('ZW', 'Zimbabwe'), ('AG', 'Akrotiri and Dhekelia'), ('BH', 'Bahrain'), ('CY', 'Cyprus'), ('IR', 'Iran'), ('IQ', 'Iraq'),
                 ('IL', 'Israel'), ('JO', 'Jordan'), ('KW', 'Kuwait'), ('LB', 'Lebanon'), ('OM', 'Oman'), ('PS', 'Palestine'), ('QA', 'Qatar'),
-                ('SA', 'Saudi Arabia'), ('SY', 'Syria'), ('TR', 'Turkey'), ('AE', 'United Arab Emirates'), ('YE', 'Yemen')],
+                ('SA', 'Saudi Arabia'), ('SY', 'Syria'), ('TR', 'Turkey'), ('AE', 'United Arab Emirates'), ('YE', 'Yemen'), ('KZ', 'Kazakhstan'), 
+                ('KG', 'Kyrgyzstan'), ('TJ', 'Tajikistan'), ('TM', 'Turkmenistan'), ('UZ', 'Uzbekistan'), ('AF', 'Afghanistan'), ('PK', 'Pakistan')],
             'North America': [
                 ('US', 'United States'), ('CA', 'Canada'), ('MX', 'Mexico')],
             'Western Europe': [

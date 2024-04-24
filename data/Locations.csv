@@ -7,21 +7,12 @@ JP,Japan,Asia Pacific,1
 MN,Mongolia,Asia Pacific,1
 KR,South Korea,Asia Pacific,1
 TW,Taiwan,Asia Pacific,1
-KZ,Kazakhstan,Asia Pacific,1
-KG,Kyrgyzstan,Asia Pacific,1
-TJ,Tajikistan,Asia Pacific,1
-TM,Turkmenistan,Asia Pacific,1
-UZ,Uzbekistan,Asia Pacific,1
-AF,Afghanistan,Asia Pacific,1
 BD,Bangladesh,Asia Pacific,1
 BT,Bhutan,Asia Pacific,1
 IN,India,Asia Pacific,1
-IR,Iran,Asia Pacific,1
 MV,Maldives,Asia Pacific,1
 NP,Nepal,Asia Pacific,1
-PK,Pakistan,Asia Pacific,1
 LK,Sri Lanka,Asia Pacific,1
-TR,Turkey,Asia Pacific,1
 BN,Brunei Darussalam,Asia Pacific,1
 KH,Cambodia,Asia Pacific,1
 ID,Indonesia,Asia Pacific,1
@@ -34,7 +25,6 @@ TH,Thailand,Asia Pacific,1
 TL,Timor-Leste (East Timor),Asia Pacific,1
 VN,Vietnam,Asia Pacific,1
 AS,American Samoa,Asia Pacific,1
-AU,Australia,Asia Pacific,1
 CK,Cook Islands,Asia Pacific,1
 FJ,Fiji,Asia Pacific,1
 PF,French Polynesia,Asia Pacific,1
@@ -43,21 +33,21 @@ KI,Kiribati,Asia Pacific,1
 MH,Marshall Islands,Asia Pacific,1
 FM,Micronesia,Asia Pacific,1
 NR,Nauru,Asia Pacific,1
-NC,New Caledonia,Asia Pacific,1
 NU,Niue,Asia Pacific,1
 MP,Northern Mariana Islands,Asia Pacific,1
 PW,Palau,Asia Pacific,1
-PG,Papua New Guinea,Asia Pacific,1
 WS,Samoa,Asia Pacific,1
-SB,Solomon Islands,Asia Pacific,1
 TO,Tonga,Asia Pacific,1
 TV,Tuvalu,Asia Pacific,1
-VU,Vanuatu,Asia Pacific,1
 AU,Australia,Australasia,2
 CX,Christmas Island,Australasia,2
 CC,Cocos Islands,Australasia,2
 NZ,New Zealand,Australasia,2
 NF,Norfolk Island,Australasia,2
+PG,Papua New Guinea,Australasia,2
+NC,New Caledonia,Australasia,2
+VU,Vanuatu,Australasia,2
+SB,Solomon Islands,Australasia,2
 BG,Bulgaria,Eastern Europe,3
 CZ,Czech Republic,Eastern Europe,3
 HU,Hungary,Eastern Europe,3
@@ -161,6 +151,13 @@ SY,Syria,Middle East and Africa,5
 TR,Turkey,Middle East and Africa,5
 AE,United Arab Emirates,Middle East and Africa,5
 YE,Yemen,Middle East and Africa,5
+KZ,Kazakhstan,Middle East and Africa,5
+KG,Kyrgyzstan,Middle East and Africa,5
+TJ,Tajikistan,Middle East and Africa,5
+TM,Turkmenistan,Middle East and Africa,5
+UZ,Uzbekistan,Middle East and Africa,5
+AF,Afghanistan,Middle East and Africa,5
+PK,Pakistan,Middle East and Africa,5
 US,United States,North America,6
 CA,Canada,North America,6
 MX,Mexico,North America,6

@@ -9,6 +9,10 @@ def main():
     data_dir = os.path.join(current_dir, "data")
     location_file = os.path.join(current_dir, "data/Locations.csv")
     channel_file = os.path.join(current_dir, "data/Channel_Volume.csv")
+    market_file = os.path.join(current_dir, "data/Channel_Volume.csv")
+    company_file = os.path.join(current_dir, "data/Channel_Volume.csv")
+    category_file = os.path.join(current_dir, "data/Channel_Volume.csv")
+    subcategory_file = os.path.join(current_dir, "data/Channel_Volume.csv")
     database_path = os.path.join(current_dir, "data/sell_more_beer.db")
 
     # Assign the DataProcessor class
@@ -36,9 +40,12 @@ def main():
     processor.drop_column(channel_file, "Category")
     processor.drop_column(data_dir, "Year")
 
-    #Rename columns
+    # Rename columns
     processor.rename_column(channel_file, "Subcategory", "Category")
     processor.rename_column(data_dir, "Year_date", "Date")
+
+    # Merge dimension tables to fact tables for use in Tableau
+    processor.merge_dim_tables(data_dir)
 
     # Create date dimension table for use in database schema
     processor.create_date_table(data_dir)

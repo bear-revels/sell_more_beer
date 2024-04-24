@@ -287,6 +287,53 @@ class DataProcessor:
                     # Write back to CSV file
                     df.to_csv(file_path, sep=',', index=False)
     
+    def merge_dim_tables(self, data_dir):
+        """
+        Merge Subcategories.csv with Company_Share_GBO_Unit.csv and Market_Sizes.csv.
+
+        Args:
+            data_dir (str): Path to the directory containing CSV files.
+        """
+        # Define file paths for all CSV files
+        subcategories_file = os.path.join(data_dir, "Subcategories.csv")
+        company_share_file = os.path.join(data_dir, "Company_Share_GBO_Unit.csv")
+        market_sizes_file = os.path.join(data_dir, "Market_Sizes.csv")
+        categories_file = os.path.join(data_dir, "Categories.csv")
+        channel_volume_file = os.path.join(data_dir, "Channel_Volume.csv")
+
+        # Read CSV files into DataFrames
+        subcategories_df = pd.read_csv(subcategories_file)
+        categories_df = pd.read_csv(categories_file)
+        company_share_df = pd.read_csv(company_share_file)
+        market_sizes_df = pd.read_csv(market_sizes_file)
+        channel_volume_df = pd.read_csv(channel_volume_file)
+
+        # Merge with Company_Share_GBO_Unit.csv if necessary
+        if 'Subcategory_Name' not in company_share_df:
+            company_merge = pd.merge(company_share_df, subcategories_df[['id', 'Category', 'Name']], left_on='Subcategory_ID', right_on='id', how='left')
+            company_merge.drop(columns=['id'], inplace=True)
+            company_merge.rename(columns={'Category': 'Category_ID', 'Name': 'Subcategory_Name'}, inplace=True)
+            company_merge = pd.merge(company_merge, categories_df[['id', 'Name']], left_on='Category_ID', right_on='id', how='left')
+            company_merge.drop(columns=['id'], inplace=True)
+            company_merge.rename(columns={'Name': 'Category_Name'}, inplace=True)
+            company_merge.to_csv(company_share_file, index=False)
+
+        # Merge with Market_Sizes.csv if necessary
+        if 'Subcategory_Name' not in market_sizes_df:
+            market_merge = pd.merge(market_sizes_df, subcategories_df[['id', 'Category', 'Name']], left_on='Subcategory', right_on='id', how='left')
+            market_merge.drop(columns=['id'], inplace=True)
+            market_merge.rename(columns={'Category': 'Category_ID', 'Name': 'Subcategory_Name', 'Subcategory': 'Subcategory_ID'}, inplace=True)
+            market_merge = pd.merge(market_merge, categories_df[['id', 'Name']], left_on='Category_ID', right_on='id', how='left')
+            market_merge.drop(columns=['id'], inplace=True)
+            market_merge.rename(columns={'Name': 'Category_Name'}, inplace=True)
+            market_merge.to_csv(market_sizes_file, index=False)
+
+        # Update Channel_Volume.csv if necessary
+        if 'Subcategory_Name' not in channel_volume_df:
+            channel_volume_df['Subcategory_Name'] = channel_volume_df['Category']
+            channel_volume_df.rename(columns={'Category': 'Category_Name'}, inplace=True)
+            channel_volume_df.to_csv(channel_volume_file, index=False)
+
     def create_date_table(self, data_dir):
         """
         Create a date dimension table based on the range of dates present in the 'Year_date' columns of the CSV files.

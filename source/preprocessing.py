@@ -189,13 +189,20 @@ class DataProcessor:
                     # Convert 'Volume' column to float
                     df['Volume'] = df['Volume'].str.replace(',', '.').astype(float)
 
-                    # Process volume units
-                    df['Volume_Litres'] = df.apply(lambda row: round(row['Volume'] * 1000000) if row['Unit'] == 'million litres'
-                                                else round(row['Volume'] * 1000) if row['Unit'] == '000 litres' else row['Volume'],
-                                                axis=1)
-                    
-                    # Write back to CSV file with updated volume in litres
-                    df.to_csv(file_path, index=False, decimal=',')
+                    # Process volume units only when 'Unit' column is either '000 litres' or 'million litres'
+                    if ('000 litres' in df['Unit'].values) or ('million litres' in df['Unit'].values):
+                        def calculate_volume(row):
+                            if row['Unit'] == 'million litres':
+                                return round(row['Volume'] * 1000000)
+                            elif row['Unit'] == '000 litres':
+                                return round(row['Volume'] * 1000)
+                            else:
+                                return row['Volume']
+
+                        df['Volume_Litres'] = df.apply(calculate_volume, axis=1)
+
+                        # Write back to CSV file with updated volume in litres
+                        df.to_csv(file_path, index=False, decimal=',')
 
     def fix_string_columns(self, data_dir):
         """

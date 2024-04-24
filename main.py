@@ -8,7 +8,7 @@ def main():
     # Specify the data source and paths
     data_dir = os.path.join(current_dir, "data")
     location_file = os.path.join(current_dir, "data/Locations.csv")
-    channel_file = os.path.join(current_dir, "data/Locations.csv")
+    channel_file = os.path.join(current_dir, "data/Channel_Volume.csv")
     database_path = os.path.join(current_dir, "data/sell_more_beer.db")
 
     # Assign the DataProcessor class
@@ -22,7 +22,6 @@ def main():
 
     # Transpose the Location file
     processor.transpose(location_file)
-
 
     # Standardize the date format to DD/MM/YYYY
     processor.format_date(data_dir)
